@@ -8,58 +8,45 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-
 class User(Base):
     __tablename__ = 'user'
-
     id = Column(Integer, primary_key=True)
-    username = Column(String(250), nullable=False)
-    firstname = Column(String(250), nullable=False)
-    lastname = Column(String(250), nullable=False)
-    email = Column(String(250), nullable=False)
+    username = Column(String(25), unique=True, nullable=False)
+    first_name =Column(String(25), nullable=False)
+    last_name =Column(String(25), nullable=False)
+    email =Column(String(30),unique=True, nullable=False) 
+    password= Column(String(12), nullable=False)
 
-
-class Post(Base):
-    __tablename__ = 'post'
-
+class Vehicles(Base):
+    __tablename__ = 'vehicles'
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-    
+    name = Column(String(250), nullable=False)
+    vehicle_class = Column(String (250))
+    cargo_capacity = Column(Integer)
+    characters = relationship('Characters')
+    characters_id = Column(Integer, ForeignKey('characters.id'))
 
-
-class Media(Base):
-    __tablename__ = 'media'
-    
+class Characters(Base):
+    __tablename__ = 'characters'
     id = Column(Integer, primary_key=True)
-    post_id = Column(Integer, ForeignKey('post.id'))
-    Source_Media = Column(String)
-    Type = Column(Enum)
-    post = relationship(Post)
-
+    name = Column(String(250), nullable=False)
+    gender = Column(String(250))
+    eye_color = Column(String(250))
+    mass = Column(Integer)
+    planets = relationship('Planets')
+    homeworld = Column(Integer, ForeignKey('planets.id'))
+    vehicles = relationship('Vehicles')
+    vehicles = Column(Integer, ForeignKey('vehicles.id'))
     
-    
-
-class Comment(Base):
-    __tablename__ = 'comment'
-    
+class Planets(Base):
+    __tablename__ = 'planets'
     id = Column(Integer, primary_key=True)
-    author_id = Column(Integer, ForeignKey('user.id'))
-    post_id = Column(Integer, ForeignKey('post.id'))
-    Comment_text = Column(String(250), nullable=False)
-    user = relationship(User)
-    post = relationship(Post)
-
-
-
-
-class Followers(Base):
-    __tablename__ = 'followers'
-    id = Column(Integer, primary_key=True)
-    user_from_id = Column(Integer, ForeignKey('user.id'))
-    user_to_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-    
+    name = Column(String(250), nullable=False)
+    diameter = Column(Integer)
+    terrain = Column(String(250))
+    climate = Column(String(250))
+    characters = relationship('Characters')
+    characters_id = Column(Integer, ForeignKey('characters.id'))
 
     def to_dict(self):
         return {}
