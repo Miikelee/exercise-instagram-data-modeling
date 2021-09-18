@@ -34,9 +34,9 @@ class Characters(Base):
     eye_color = Column(String(250))
     mass = Column(Integer)
     planets = relationship('Planets')
-    homeworld = Column(Integer, ForeignKey('planets.id'))
+    homeworld_id = Column(Integer, ForeignKey('planets.id'))
     vehicles = relationship('Vehicles')
-    vehicles = Column(Integer, ForeignKey('vehicles.id'))
+    vehicles_id = Column(Integer, ForeignKey('vehicles.id'))
     
 class Planets(Base):
     __tablename__ = 'planets'
@@ -47,6 +47,18 @@ class Planets(Base):
     climate = Column(String(250))
     characters = relationship('Characters')
     characters_id = Column(Integer, ForeignKey('characters.id'))
+
+class Favorites(Base):
+    __tablename__ = 'favorites'
+    id = Column(Integer, primary_key=True)
+    favorite_planets = relationship('Planets')
+    favorite_planets_id = Column(Integer, ForeignKey('planets.id'))
+    favorite_vehicles = relationship('Vehicles')
+    favorite_vehicles_id = Column(Integer, ForeignKey('vehicles.id'))
+    favorite_characters = relationship('Characters')
+    favorite_characters_id = Column(Integer, ForeignKey('characters.id'))
+
+
 
     def to_dict(self):
         return {}
