@@ -21,6 +21,7 @@ class Vehicles(Base):
     __tablename__ = 'vehicles'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    Model = Column(String(250), nullable=False)
     vehicle_class = Column(String (250))
     cargo_capacity = Column(Integer)
     characters = relationship('Characters')
