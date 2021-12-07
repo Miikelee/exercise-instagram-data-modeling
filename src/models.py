@@ -17,7 +17,7 @@ class User(Base):
     email =Column(String(30),unique=True, nullable=False) 
     password= Column(String(12), nullable=False)
 
-class Vehicles(Base):
+class Vehicle(Base):
     __tablename__ = 'vehicles'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -27,7 +27,7 @@ class Vehicles(Base):
     characters = relationship('Characters')
     characters_id = Column(Integer, ForeignKey('characters.id'))
 
-class Characters(Base):
+class Character(Base):
     __tablename__ = 'characters'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -39,7 +39,7 @@ class Characters(Base):
     vehicles = relationship('Vehicles')
     vehicles_id = Column(Integer, ForeignKey('vehicles.id'))
     
-class Planets(Base):
+class Planet(Base):
     __tablename__ = 'planets'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -49,7 +49,7 @@ class Planets(Base):
     characters = relationship('Characters')
     characters_id = Column(Integer, ForeignKey('characters.id'))
 
-class Favorites(Base):
+class Favorite(Base):
     __tablename__ = 'favorites'
     id = Column(Integer, primary_key=True)
     favorite_planets = relationship('Planets')
